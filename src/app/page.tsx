@@ -3,6 +3,8 @@ import Link from "next/link";
 import { LatestPost } from "@/app/_components/post";
 import { auth } from "@/server/auth";
 import { api, HydrateClient } from "@/trpc/server";
+import demo from "@/data/demo.json";
+import BrandCard from "@/app/_components/BrandCard";
 
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
@@ -62,6 +64,23 @@ export default async function Home() {
           </div>
 
           {session?.user && <LatestPost />}
+
+          {/* Demo brands list (minimal Linktree-style pages) */}
+          <div className="w-full max-w-4xl">
+            <h2 className="mb-4 text-3xl font-bold">Demo brand profiles</h2>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+              {demo.brands.map((b) => (
+                <BrandCard
+                  key={b.id}
+                  id={b.id}
+                  name={b.name}
+                  handle={b.handle}
+                  bio={b.bio}
+                  themeColor={b.themeColor}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </main>
     </HydrateClient>

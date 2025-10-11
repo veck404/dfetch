@@ -1,0 +1,34 @@
+{
+  "brands": [
+    {
+      "id": "acme",
+      "name": "Acme Co",
+      "handle": "acme",
+      "bio": "Minimal profile for Acme Co.",
+      "links": [
+        { "title": "Website", "url": "https://acme.example" },
+        { "title": "Docs", "url": "https://acme.example/docs" }
+      ],
+      "themeColor": "#FF6B6B"
+    },
+    {
+      "id": "mybrandname",
+      "name": "MyBrandName",
+      "handle": "mybrandname",
+      "bio": "Demo brand page for MyBrandName.",
+      "links": [
+        { "title": "Portfolio", "url": "https://mybrand.example" },
+        { "title": "Contact", "url": "mailto:hello@mybrand.example" }
+      ],
+      "themeColor": "#4C6FFF"
+    },
+    {
+      "id": "linkly",
+      "name": "Linkly",
+      "handle": "linkly",
+      "bio": "Another demo brand to show routing.",
+      "links": [{ "title": "Home", "url": "https://linkly.example" }],
+      "themeColor": "#22C55E"
+    }
+  ]
+}
