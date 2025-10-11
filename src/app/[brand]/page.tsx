@@ -10,8 +10,13 @@ type Brand = {
   links?: { title: string; url: string }[];
 };
 
-export default function BrandPage({ params }: { params: { brand: string } }) {
-  const handle = params.brand;
+export default async function BrandPage({
+  params,
+}: {
+  params: { brand: string } | Promise<{ brand: string }>;
+}) {
+  const resolved = await params;
+  const handle = resolved.brand;
   const brand = demo.brands.find(
     (b: Brand) => b.handle === handle || b.id === handle,
   ) as Brand | undefined;
@@ -32,52 +37,52 @@ export default function BrandPage({ params }: { params: { brand: string } }) {
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-gray-50">
-      <div
-        style={{ width: 420 }}
-        className="m-8 rounded-lg bg-white p-6 shadow"
-      >
-        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+      <div className="mx-4 w-full max-w-sm rounded-xl bg-white p-8 shadow-lg">
+        <div className="flex flex-col items-center">
           <div
+            className="flex items-center justify-center font-extrabold text-white"
             style={{
-              width: 72,
-              height: 72,
-              borderRadius: 12,
-              background: brand.themeColor,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#fff",
-              fontWeight: 700,
-              fontSize: 28,
+              width: 120,
+              height: 120,
+              borderRadius: 9999,
+              background: brand.themeColor ?? "#666",
             }}
           >
-            {brand.name?.slice(0, 1)}
+            <span className="text-4xl">
+              {brand.name
+                ?.split(" ")
+                .map((s) => s[0])
+                .slice(0, 2)
+                .join("")}
+            </span>
           </div>
-          <div>
-            <h1 className="text-2xl font-bold">{brand.name}</h1>
-            <div className="text-sm text-gray-600">@{brand.handle}</div>
+
+          <h1 className="mt-4 text-2xl font-extrabold text-gray-900">
+            {brand.name}
+          </h1>
+          <div className="mt-1 text-sm text-gray-500">@{brand.handle}</div>
+
+          {brand.bio && (
+            <p className="mt-4 text-center text-gray-600">{brand.bio}</p>
+          )}
+
+          <div className="mt-6 flex w-full flex-col gap-3">
+            {brand.links?.map((l) => (
+              <a
+                key={l.url}
+                href={l.url}
+                target="_blank"
+                rel="noreferrer"
+                className="block w-full rounded-full bg-gray-100 px-6 py-3 text-center text-gray-900 no-underline shadow-sm transition hover:scale-[1.01] hover:shadow-md"
+              >
+                {l.title}
+              </a>
+            ))}
           </div>
-        </div>
 
-        <p className="mt-4 text-gray-700">{brand.bio}</p>
-
-        <div className="mt-6 flex flex-col gap-3">
-          {brand.links?.map((l) => (
-            <a
-              key={l.url}
-              href={l.url}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded border px-4 py-2 text-center text-black no-underline"
-              style={{ background: "#f7f7f7" }}
-            >
-              {l.title}
-            </a>
-          ))}
-        </div>
-
-        <div className="mt-6 text-center text-sm text-gray-500">
-          <Link href="/">Back to demo list</Link>
+          <div className="mt-6 text-center text-sm text-gray-500">
+            <Link href="/">Back to demo list</Link>
+          </div>
         </div>
       </div>
     </main>

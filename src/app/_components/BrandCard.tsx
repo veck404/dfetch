@@ -19,41 +19,39 @@ export default function BrandCard({
   themeColor,
   links,
 }: Props) {
-  // show first link title as a tiny subtitle if provided (avoids unused var)
   const subtitle = links && links.length > 0 ? (links[0]?.title ?? bio) : bio;
+  const initials = name
+    ? name
+        .split(" ")
+        .map((s) => s[0])
+        .slice(0, 2)
+        .join("")
+    : (name?.slice(0, 1) ?? "B");
 
   return (
-    <Link
-      href={`/${handle ?? id}`}
-      className="brand-card"
-      style={{
-        display: "block",
-        borderRadius: 8,
-        padding: 12,
-        border: "1px solid #eee",
-        textDecoration: "none",
-        color: "inherit",
-      }}
-    >
-      <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+    <Link href={`/${handle ?? id}`} className="block no-underline">
+      <div
+        className="flex flex-col items-center gap-3 rounded-xl bg-white/5 p-6 text-center transition hover:shadow-lg"
+        style={{ minHeight: 160 }}
+      >
         <div
+          className="flex items-center justify-center font-bold text-white"
           style={{
-            width: 48,
-            height: 48,
-            borderRadius: 8,
-            background: themeColor ?? "#ddd",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#fff",
-            fontWeight: 700,
+            width: 88,
+            height: 88,
+            borderRadius: 9999,
+            background: themeColor ?? "#888",
           }}
         >
-          {name?.slice(0, 1)}
+          <span className="text-2xl">{initials}</span>
         </div>
+
         <div>
-          <div style={{ fontWeight: 700 }}>{name}</div>
-          <div style={{ color: "#666" }}>{subtitle}</div>
+          <div className="text-lg font-semibold text-white">{name}</div>
+          <div className="mt-1 text-sm text-gray-300">@{handle}</div>
+          {subtitle && (
+            <div className="mt-2 text-sm text-gray-400">{subtitle}</div>
+          )}
         </div>
       </div>
     </Link>
