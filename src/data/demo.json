@@ -4,7 +4,7 @@
       "id": "acme",
       "name": "Acme Co",
       "handle": "acme",
-      "bio": "Minimal profile for Acme Co.",
+      "bio": "Minimal profile for Acme Co. ",
       "links": [
         { "title": "Website", "url": "https://acme.example" },
         { "title": "Docs", "url": "https://acme.example/docs" }
@@ -15,7 +15,7 @@
       "id": "mybrandname",
       "name": "MyBrandName",
       "handle": "mybrandname",
-      "bio": "Demo brand page for MyBrandName.",
+      "bio": "Demo brand page for MyBrandName. ",
       "links": [
         { "title": "Portfolio", "url": "https://mybrand.example" },
         { "title": "Contact", "url": "mailto:hello@mybrand.example" }
@@ -26,9 +26,33 @@
       "id": "linkly",
       "name": "Linkly",
       "handle": "linkly",
-      "bio": "Another demo brand to show routing.",
+      "bio": "Another demo brand to show routing. ",
       "links": [{ "title": "Home", "url": "https://linkly.example" }],
       "themeColor": "#22C55E"
+    },
+    {
+      "id": "facebook",
+      "name": "Facebook",
+      "handle": "facebook",
+      "bio": "Official Facebook demo profile. ",
+      "links": [{ "title": "Home", "url": "https://facebook.com" }],
+      "themeColor": "#1877F2"
+    },
+    {
+      "id": "instagram",
+      "name": "Instagram",
+      "handle": "instagram",
+      "bio": "Official Instagram demo profile. ",
+      "links": [{ "title": "Home", "url": "https://instagram.com" }],
+      "themeColor": "#E1306C"
+    },
+    {
+      "id": "twitter",
+      "name": "Twitter",
+      "handle": "twitter",
+      "bio": "Official Twitter demo profile. ",
+      "links": [{ "title": "Home", "url": "https://twitter.com" }],
+      "themeColor": "#1DA1F2"
     }
   ]
 }
