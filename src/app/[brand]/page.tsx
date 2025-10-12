@@ -10,12 +10,11 @@ type Brand = {
   links?: { title: string; url: string }[];
 };
 
-export default async function BrandPage({ params }: { params: any }) {
-  const resolvedParams = await Promise.resolve(params);
-  const handle = resolvedParams.brand;
+export default function BrandPage({ params }: { params: { brand: string } }) {
+  const handle = params.brand;
   const brand = demo.brands.find(
-    (b: Brand) => b.handle === handle || b.id === handle,
-  ) as Brand | undefined;
+    (b) => b.handle === handle || b.id === handle
+  );
 
   if (!brand) {
     return (
