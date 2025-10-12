@@ -11,6 +11,19 @@ type Props = {
   links?: LinkItem[];
 };
 
+/**
+ * Renders a card displaying brand information including initials, name, handle, bio, and links.
+ *
+ * @param id - Unique identifier for the brand.
+ * @param name - Display name of the brand.
+ * @param handle - Unique handle or username for the brand.
+ * @param bio - Short biography or description of the brand.
+ * @param themeColor - Optional color used for the brand's avatar background.
+ * @param links - Optional array of link objects associated with the brand.
+ *
+ * The card shows the brand's initials in a colored circle, the name, handle, and either the first link's title or the bio as a subtitle.
+ * Clicking the card navigates to the brand's page.
+ */
 export default function BrandCard({
   id,
   name,
