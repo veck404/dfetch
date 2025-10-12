@@ -10,11 +10,17 @@ type Brand = {
   links?: { title: string; url: string }[];
 };
 
-export default function BrandPage({ params }: { params: { brand: string } }) {
-  const handle = params.brand;
-  const brand = demo.brands.find(
-    (b) => b.handle === handle || b.id === handle
-  );
+export default async function BrandPage({
+  params,
+}: {
+  params: { brand: string } | Promise<{ brand: string }>;
+}) {
+  // Next may pass `params` as a Promise in some runtime paths. Await to satisfy PageProps.
+  const resolvedParams = await Promise.resolve(params);
+  const handle = resolvedParams.brand;
+  const brand = demo.brands.find((b: Brand) => b.handle === handle || b.id === handle) as
+    | Brand
+    | undefined;
 
   if (!brand) {
     return (
