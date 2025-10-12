@@ -10,7 +10,7 @@ type Brand = {
   links?: { title: string; url: string }[];
 };
 
-export default async function BrandPage({ params }: { params: { brand: string } } | { params: Promise<{ brand: string }> }) {
+export default async function BrandPage({ params }: { params: any }) {
   const resolvedParams = await Promise.resolve(params);
   const handle = resolvedParams.brand;
   const brand = demo.brands.find(
