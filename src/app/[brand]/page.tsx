@@ -13,8 +13,7 @@ type Brand = {
 export default async function BrandPage({
   params,
 }: {
-  params: { brand: string } | Promise<{ brand: string }>;
-}) {
+  params: { brand: string } }) {
   // Next may pass `params` as a Promise in some runtime paths. Await to satisfy PageProps.
   const resolvedParams = await Promise.resolve(params);
   const handle = resolvedParams.brand;

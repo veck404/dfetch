@@ -1,13 +1,13 @@
 {
   "brands": [
     {
-      "id": "acme",
-      "name": "Acme Co",
-      "handle": "acme",
-      "bio": "Minimal profile for Acme Co. ",
+      "id": "SnapChat",
+      "name": "SnapChat",
+      "handle": "SnapChat",
+      "bio": "Link to demo SnapChat profile. ",
       "links": [
-        { "title": "Website", "url": "https://acme.example" },
-        { "title": "Docs", "url": "https://acme.example/docs" }
+        { "title": "Website", "url": "https://SnapChat.example" },
+        { "title": "Docs", "url": "https://SnapChat.example/docs" }
       ],
       "themeColor": "#FF6B6B"
     },
