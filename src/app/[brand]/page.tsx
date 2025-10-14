@@ -10,23 +10,23 @@ type Brand = {
   links?: { title: string; url: string }[];
 };
 
-export default async function BrandPage({
-  params,
-}: {
-  params: { brand: string } }) {
-  // Next may pass `params` as a Promise in some runtime paths. Await to satisfy PageProps.
-  const resolvedParams = await Promise.resolve(params);
-  const handle = resolvedParams.brand;
-  const brand = demo.brands.find((b: Brand) => b.handle === handle || b.id === handle) as
-    | Brand
-    | undefined;
+type PageProps = {
+  params: Promise<{ brand: string }>;
+};
 
-  if (!brand) {
+export default async function BrandPage({ params }: PageProps) {
+  const { brand } = await params;
+
+  const brandData = demo.brands.find(
+    (b: Brand) => b.handle === brand || b.id === brand,
+  ) as Brand | undefined;
+
+  if (!brandData) {
     return (
       <main className="flex min-h-screen items-center justify-center">
         <div className="text-center">
           <h1 className="text-3xl font-bold">Brand not found</h1>
-          <p className="mt-2">No brand profile for &quot;{handle}&quot;</p>
+          <p className="mt-2">No brand profile for &quot;{brand}&quot;</p>
           <Link href="/" className="mt-4 inline-block text-blue-600">
             Back home
           </Link>
@@ -45,11 +45,11 @@ export default async function BrandPage({
               width: 120,
               height: 120,
               borderRadius: 9999,
-              background: brand.themeColor ?? "#666",
+              background: brandData.themeColor ?? "#666",
             }}
           >
             <span className="text-4xl">
-              {brand.name
+              {brandData.name
                 ?.split(" ")
                 .map((s) => s[0])
                 .slice(0, 2)
@@ -58,16 +58,16 @@ export default async function BrandPage({
           </div>
 
           <h1 className="mt-4 text-2xl font-extrabold text-gray-900">
-            {brand.name}
+            {brandData.name}
           </h1>
-          <div className="mt-1 text-sm text-gray-500">@{brand.handle}</div>
+          <div className="mt-1 text-sm text-gray-500">@{brandData.handle}</div>
 
-          {brand.bio && (
-            <p className="mt-4 text-center text-gray-600">{brand.bio}</p>
+          {brandData.bio && (
+            <p className="mt-4 text-center text-gray-600">{brandData.bio}</p>
           )}
 
           <div className="mt-6 flex w-full flex-col gap-3">
-            {brand.links?.map((l) => (
+            {brandData.links?.map((l) => (
               <a
                 key={l.url}
                 href={l.url}
@@ -87,4 +87,4 @@ export default async function BrandPage({
       </div>
     </main>
   );
-}
+};
