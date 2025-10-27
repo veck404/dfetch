@@ -1,5 +1,6 @@
 import Link from "next/link";
 import demo from "@/data/demo.json";
+import type { Metadata } from "next";
 
 type Brand = {
   id: string;
@@ -11,11 +12,34 @@ type Brand = {
 };
 
 type PageProps = {
-  params: Promise<{ brand: string }>;
+  params: { brand: string };
 };
 
-export default async function BrandPage({ params }: PageProps) {
-  const { brand } = await params;
+export function generateStaticParams() {
+  return demo.brands.map((b: Brand) => ({ brand: b.handle }));
+}
+
+export function generateMetadata({ params }: PageProps): Metadata {
+  const { brand } = params;
+  const brandData = demo.brands.find(
+    (b: Brand) => b.handle === brand || b.id === brand,
+  ) as Brand | undefined;
+
+  if (!brandData) {
+    return {
+      title: "Brand not found",
+      description: `No brand profile for "${brand}"`,
+    };
+  }
+
+  return {
+    title: `${brandData.name} (@${brandData.handle})`,
+    description: brandData.bio ?? `Profile for ${brandData.name}`,
+  };
+}
+
+export default function BrandPage({ params }: PageProps) {
+  const { brand } = params;
 
   const brandData = demo.brands.find(
     (b: Brand) => b.handle === brand || b.id === brand,
@@ -72,7 +96,7 @@ export default async function BrandPage({ params }: PageProps) {
                 key={l.url}
                 href={l.url}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="block w-full rounded-full bg-gray-100 px-6 py-3 text-center text-gray-900 no-underline shadow-sm transition hover:scale-[1.01] hover:shadow-md"
               >
                 {l.title}
@@ -87,4 +111,4 @@ export default async function BrandPage({ params }: PageProps) {
       </div>
     </main>
   );
-};
+}
